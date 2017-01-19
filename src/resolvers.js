@@ -40,6 +40,22 @@ const resolvers = {
       };
     },
 
+    async apVerifyAccount(root, { userId, verificationToken }) {
+      const user = await this.db.fetchUserById(userId);
+      if (!user)
+        return 'No such userId';
+
+      if (user.verificationToken !== verificationToken) {
+        return 'Verification token not valid';
+      }
+
+      if (Date.now() > user.verificationTokenExpiration) {
+        return 'Verification token expired';
+      }
+
+      this.db.verifyUserAccount(userId);
+    },
+
     apLoginEmailPassword(root, args) {
       return new Promise((resolve, reject) => {
 
