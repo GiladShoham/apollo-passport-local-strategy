@@ -1,5 +1,6 @@
 // Core node modules && npm packages
 import bcrypt from 'bcrypt';
+const crypto = require('crypto');
 
 // Passport modules
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -32,8 +33,18 @@ const extensionMethods = {
       bcrypt.compare(password, hash,
         (err, res) => err ? reject(err) : resolve(res) );
     });
-  }
+  },
 
+  // Used for email verification and for reset password
+  generateVerificationToken(expirationSeconds) {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(20, (err, buf) => {
+        var token = buf.toString('hex');
+        var expiration = Date.now() + (expirationSeconds * 1000);
+        err ? reject(err) : resolve({ token, expiration });
+      });
+    });
+  },
 };
 
 class AugmentedLocalStrategy {
