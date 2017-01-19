@@ -1,10 +1,17 @@
 # apollo-passport-local
 
+Forked from [apollo-passport/local](https://github.com/apollo-passport/local)
 Local strategy using email address and hashed, bcrypted password.
 
 [![npm](https://img.shields.io/npm/v/apollo-passport-local.svg?maxAge=2592000)](https://www.npmjs.com/package/apollo-passport-local) [![Circle CI](https://circleci.com/gh/apollo-passport/local.svg?style=shield)](https://circleci.com/gh/apollo-passport/local) [![Coverage Status](https://coveralls.io/repos/github/apollo-passport/local/badge.svg?branch=master)](https://coveralls.io/github/apollo-passport/local?branch=master) ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Copyright (c) 2016 by Gadi Cohen, released under the MIT license.
+Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
+
+## New Features in this fork (Highlights)
+* Add account verification token
+* Add option to define input apUserInput (outside) for creating new users with your desired fields
+
+## New Features in this fork (Usage)
 
 ## Features
 
