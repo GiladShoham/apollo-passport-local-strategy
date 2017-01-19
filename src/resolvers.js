@@ -36,7 +36,7 @@ const resolvers = {
 
       return {
         error: "",
-        token: this.createTokenFromUser(user)
+        token: '',
       };
     },
 
