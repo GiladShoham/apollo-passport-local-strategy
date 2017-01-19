@@ -1,21 +1,25 @@
 const resolvers = {
 
   RootMutation: {
-    async apCreateUserEmailPassword(root, { email, password }) {
+    async apCreateUserEmailPassword(root, { input }) {
       // First check if we already have a user with that email
-      const existing = await this.db.fetchUserByEmail(email);
+      const existing = await this.db.fetchUserByEmail(input.email);
+      let reducedInput = Object.assign({}, input);
+      delete reducedInput.email;
+      delete reducedInput.password;
+
       if (existing)
         return { token: "", error: "E-mail already registered" };
 
       // Get token which expires after one hour
       const verificatinToken = await this.generateVerificationToken(60 * 60);
-      const user = {
-        emails: [{ address: email }],
-        services: { password: { bcrypt: await this.hashPassword(password) } },
+      const user = Object.assign(reducedInput, {
+        emails: [{ address: input.email }],
+        services: { password: { bcrypt: await this.hashPassword(input.password) } },
         verificatinToken: verificatinToken.token,
         verificatinTokenExpiration: verificatinToken.expiration,
         verified: false,
-      };
+      });
 
       let userId;
       try {
