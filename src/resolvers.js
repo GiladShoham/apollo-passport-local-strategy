@@ -34,6 +34,11 @@ const resolvers = {
       // XXX correct id field?
       user.id = userId;
 
+      const onCreateUserEnd = this.onCreateUserEnd;
+      if (onCreateUserEnd && typeof onCreateUserEnd === 'function') {
+        onCreateUserEnd(user);
+      }
+
       return {
         error: "",
         token: '',

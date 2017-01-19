@@ -11,6 +11,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add account verification token during create user
 * Add apVerifyAccount mutation to verify the account
 * Add option to define input apUserInput (outside) for creating new users with your desired fields
+* Add options to pass hooks method (onCreateUserEnd) (for example to send verification emails)
 
 ## New Features in this fork (Usage)
 

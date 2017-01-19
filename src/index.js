@@ -55,6 +55,9 @@ class AugmentedLocalStrategy {
     if (!options)
       options = defaultOptions;
 
+    // extensionMethods.hookFuncs = options.hookFuncs;
+    Object.assign(extensionMethods, options.hookMethods);
+
     this.strategy = new LocalStrategy(options, verify.bind(this.ap));
 
     this.resolvers = resolvers;
