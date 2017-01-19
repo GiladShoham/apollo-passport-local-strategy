@@ -11,13 +11,13 @@ const resolvers = {
       if (existing)
         return { token: "", error: "E-mail already registered" };
 
-      // Get token which expires after one hour
-      const verificatinToken = await this.generateVerificationToken(60 * 60);
+      // Get token which expires after one week
+      const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7);
       const user = Object.assign(reducedInput, {
         emails: [{ address: input.email }],
         services: { password: { bcrypt: await this.hashPassword(input.password) } },
-        verificatinToken: verificatinToken.token,
-        verificatinTokenExpiration: verificatinToken.expiration,
+        verificationToken: verificationToken.token,
+        verificationTokenExpiration: verificationToken.expiration,
         verified: false,
       });
 
