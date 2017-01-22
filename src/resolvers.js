@@ -61,6 +61,24 @@ const resolvers = {
       this.db.verifyUserAccount(userId);
     },
 
+    async apRecoverPassworedRequest(root, { email }) {
+      const user = await this.db.fetchUserByEmail(email);
+      if (!user)
+        return 'No such user email';
+
+      const { token, expiration } = await this.generateVerificationToken(60 * 60 * 24 * 7);
+      await this.db.addResetPasswordToken(user._id, token, expiration);
+
+      // Fetch again to make sure we have the tokens in the db
+      const updatedUser = await this.db.fetchUserById(user._id);
+      const onRecoverPasswordRequestEnd = this.onRecoverPasswordRequestEnd;
+      if (onRecoverPasswordRequestEnd && typeof onRecoverPasswordRequestEnd === 'function') {
+        onCreateUserEnd(updatedUser);
+      }
+
+      return '';
+    },
+
     apLoginEmailPassword(root, args) {
       return new Promise((resolve, reject) => {
 

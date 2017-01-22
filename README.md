@@ -10,8 +10,9 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 ## New Features in this fork (Highlights)
 * Add account verification token during create user
 * Add apVerifyAccount mutation to verify the account
+* Add recoverPassworedRequest mutation to create reset password token
 * Add option to define input apUserInput (outside) for creating new users with your desired fields
-* Add options to pass hooks method (onCreateUserEnd) (for example to send verification emails)
+* Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd) (for example to send verification emails)
 
 ## New Features in this fork (Usage)
 
