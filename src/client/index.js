@@ -7,14 +7,10 @@ function hashPassword(plaintext) {
 
 const mutation = {
   createUserEmailPassword: gql`
-    mutation login (
-      $email: String!
-      $password: String!
+    mutation createUserEmailPassword (
+      $input : apUserInput!
     ) {
-      apCreateUserEmailPassword (
-        email: $email
-        password: $password
-      ) {
+      apCreateUserEmailPassword(input: $input){
         error
         token
       }
@@ -53,15 +49,17 @@ const mutation = {
 
 const extensionMethods = {
 
-  async createUserEmailPassword(email, password) {
+  async createUserEmailPassword(userInput) {
     this.loginStart();
+    if (userInput.password) {
+      userInput.password = hashPassword(userInput.password);
+    }
 
     const result = await this.apolloClient.mutate({
       mutation: mutation.createUserEmailPassword,
       variables: {
-        email,
-        password: hashPassword(password)
-      }
+        input: userInput,
+      },
     });
 
     this.loginComplete(result, 'apCreateUserEmailPassword');
