@@ -73,7 +73,7 @@ const resolvers = {
       const updatedUser = await this.db.fetchUserById(user._id);
       const onRecoverPasswordRequestEnd = this.onRecoverPasswordRequestEnd;
       if (onRecoverPasswordRequestEnd && typeof onRecoverPasswordRequestEnd === 'function') {
-        onCreateUserEnd(updatedUser);
+        onRecoverPasswordRequestEnd(updatedUser);
       }
 
       return '';
