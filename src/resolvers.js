@@ -79,6 +79,34 @@ const resolvers = {
       return '';
     },
 
+    async apRecoverPasswored(root, { userId, token, newPassword }, context) {
+
+      const user = await this.db.fetchUserById(userId);
+      if (!user)
+        return 'No such userId';
+
+      if (!user.resetPassToken)
+        return 'Password reset has not been initialized';
+
+      if (user.resetPassToken !== token)
+        return 'Reset password token not valid';
+
+      if (Date.now() > user.resetPassTokenExpiration) {
+        return 'Reset password token expired';
+      }
+
+      try {
+        // Change the user password
+        await this.db.assertUserServiceData(userId,
+          'password', { bcrypt: await this.hashPassword(newPassword) });
+        // Mark the user as verified again and delete the tokens
+        await this.db.verifyUserAccount(userId, 'verified', 'resetPassToken', 'resetPassTokenExpiration');
+      } catch (err) {
+        return err.message;
+      }
+      return "";
+    },
+
     apLoginEmailPassword(root, args) {
       return new Promise((resolve, reject) => {
 

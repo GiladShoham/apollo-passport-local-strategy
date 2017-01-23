@@ -9,8 +9,12 @@ export default function verify(email, password, done) {
       if (!storedPassword)
         return done(null, false, "No password set");
 
-      if (!user.verified)
+      if (!user.verified) {
+        if (user.resetPassToken){
+          return done(null, false, "Reset password is in progress");
+        }
         return done(null, false, "Account not verified");
+      }
 
       this.comparePassword(password, storedPassword, (err, match) => {
         if (err)
