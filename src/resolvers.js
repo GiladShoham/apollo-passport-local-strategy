@@ -50,6 +50,11 @@ const resolvers = {
       if (!user)
         return 'No such userId';
 
+      // In case the user tried to verify account after click on reset password
+      // We want him to continue the process via the reset password link
+      if (!user.verificationToken && user.resetPassToken){
+        return 'Reset password is in progress';
+      }
       if (user.verificationToken !== verificationToken) {
         return 'Verification token not valid';
       }
