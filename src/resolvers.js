@@ -11,8 +11,8 @@ const resolvers = {
       if (existing)
         return { token: "", error: "E-mail already registered" };
 
-      // Get token which expires after one week
-      const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7);
+      // Get token which expires after 4 weeks
+      const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7 * 4);
       const user = Object.assign(reducedInput, {
         emails: [{ address: input.email }],
         services: { password: { bcrypt: await this.hashPassword(input.password) } },
@@ -47,20 +47,35 @@ const resolvers = {
 
     async apVerifyAccount(root, { userId, verificationToken }) {
       const user = await this.db.fetchUserById(userId);
-      if (!user)
-        return 'No such userId';
+      let err = {};
+      if (!user) {
+        return {
+          errCode: 'USER_NOT_EXIST',
+          errMessage: 'No such user id',
+        };
+      }
 
       // In case the user tried to verify account after click on reset password
       // We want him to continue the process via the reset password link
-      if (!user.verificationToken && user.resetPassToken){
-        return 'Reset password is in progress';
+      if (!user.verificationToken && user.resetPassToken) {
+        return {
+          errCode: 'RESET_PASS_IN_PROGRESS',
+          errMessage: 'Reset password is in progress',
+        };
       }
+
       if (user.verificationToken !== verificationToken) {
-        return 'Verification token not valid';
+        return {
+          errCode: 'TOKEN_NOT_VALID',
+          errMessage: 'Verification token not valid',
+        };
       }
 
       if (Date.now() > user.verificationTokenExpiration) {
-        return 'Verification token expired';
+        return {
+          errCode: 'TOKEN_EXPIRED',
+          errMessage: 'Verification token expired',
+        };
       }
 
       this.db.verifyUserAccount(userId);
@@ -71,6 +86,7 @@ const resolvers = {
       if (!user)
         return 'No such user email';
 
+      // Get token which expires after 4 weeks
       const { token, expiration } = await this.generateVerificationToken(60 * 60 * 24 * 7);
       await this.db.addResetPasswordToken(user._id, token, expiration);
 

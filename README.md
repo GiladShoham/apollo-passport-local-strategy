@@ -13,6 +13,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add recoverPassworedRequest mutation to create reset password token
 * Add option to define input apUserInput (outside) for creating new users with your desired fields
 * Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd) (for example to send verification emails)
+* Improve errors format (Add error code)
 
 ## New Features in this fork (Usage)
 
