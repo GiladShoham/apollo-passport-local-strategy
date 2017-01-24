@@ -4,8 +4,8 @@ const typeDefinitions = `
 type RootMutation {
   apCreateUserEmailPassword (input: apUserInput!): PassportResult,
   apVerifyAccount (userId: String, verificationToken: String!): SimpleError,
-  apRecoverPassworedRequest (email: String): String,
-  apRecoverPasswored (userId: String!, token: String!, newPassword: String!): String,
+  apRecoverPasswordRequest (email: String): String,
+  apRecoverPassword (userId: String!, token: String!, newPassword: String!): String,
   apUpdateUserPassword (userId: String!, oldPassword: String!, newPassword: String!): String,
   apLoginEmailPassword (email: String!, password: String!): PassportResult
 }

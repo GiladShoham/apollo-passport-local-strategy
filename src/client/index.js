@@ -32,11 +32,11 @@ const mutation = {
     }
   `,
 
-  recoverPassworedRequest: gql`
-    mutation recoverPassworedRequest (
+  recoverPasswordRequest: gql`
+    mutation recoverPasswordRequest (
       $email: String!
     ) {
-      apRecoverPassworedRequest (
+      apRecoverPasswordRequest (
         email: $email
       )
     }
@@ -91,10 +91,10 @@ const extensionMethods = {
     // this.loginComplete(result, 'apCreateUserEmailPassword');
   },
 
-  async recoverPassworedRequest(email) {
+  async recoverPasswordRequest(email) {
 
     const result = await this.apolloClient.mutate({
-      mutation: mutation.recoverPassworedRequest,
+      mutation: mutation.recoverPasswordRequest,
       variables: {
         email,
       },
@@ -103,10 +103,10 @@ const extensionMethods = {
     return result;
   },
 
-  async recoverPasswored(userId, token, newPassword) {
+  async recoverPassword(userId, token, newPassword) {
 
     const result = await this.apolloClient.mutate({
-      mutation: mutation.recoverPasswored,
+      mutation: mutation.recoverPassword,
       variables: {
         userId,
         token,

@@ -81,7 +81,7 @@ const resolvers = {
       this.db.verifyUserAccount(userId);
     },
 
-    async apRecoverPassworedRequest(root, { email }) {
+    async apRecoverPasswordRequest(root, { email }) {
       const user = await this.db.fetchUserByEmail(email);
       if (!user)
         return 'No such user email';
@@ -100,7 +100,7 @@ const resolvers = {
       return '';
     },
 
-    async apRecoverPasswored(root, { userId, token, newPassword }, context) {
+    async apRecoverPassword(root, { userId, token, newPassword }, context) {
 
       const user = await this.db.fetchUserById(userId);
       if (!user)
