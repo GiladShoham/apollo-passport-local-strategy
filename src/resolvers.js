@@ -8,12 +8,12 @@ const resolvers = {
       delete reducedInput.email;
       delete reducedInput.password;
 
-      if (existing)
+      if (existing && existing.services && Object.keys(existing.services).length > 0)
         return { token: "", error: "E-mail already registered" };
 
       // Get token which expires after 4 weeks
       const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7 * 4);
-      const user = Object.assign(reducedInput, {
+      let user = Object.assign(reducedInput, {
         emails: [{ address: input.email }],
         services: { password: { bcrypt: await this.hashPassword(input.password) } },
         verificationToken: verificationToken.token,
@@ -23,7 +23,13 @@ const resolvers = {
 
       let userId;
       try {
-        userId = await this.createUser(user);
+        if (!existing){
+          userId = await this.createUser(user);
+        } else {
+          userId = existing._id;
+          this.db.updateUser(userId, user);
+        }
+
       } catch (err) {
         return {
           error: err.message,

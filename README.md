@@ -14,6 +14,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add option to define input apUserInput (outside) for creating new users with your desired fields
 * Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
 * Improve errors format (Add error code)
+* Allow users without services to register even if their email already exist (Merge withe existing user) for case that the user added from outside and not really registered
 
 ## New Features in this fork (Usage)
 
