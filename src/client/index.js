@@ -32,6 +32,15 @@ const mutation = {
     }
   `,
 
+  verifyAccount: gql`
+    mutation verifyAccount ($userId : String!, $verificationToken: String!){
+      apVerifyAccount (userId: $userId, verificationToken: $verificationToken){
+        errCode
+        errMessage
+      }
+   }
+  `,
+
   recoverPasswordRequest: gql`
     mutation recoverPasswordRequest (
       $email: String!
@@ -89,6 +98,19 @@ const extensionMethods = {
     return result;
     // Don't call login complete since we added verification process
     // this.loginComplete(result, 'apCreateUserEmailPassword');
+  },
+
+  async verifyAccount(userId, verificationToken) {
+
+    const result = await this.apolloClient.mutate({
+      mutation: mutation.verifyAccount,
+      variables: {
+        userId,
+        verificationToken
+      },
+    });
+
+    return result;
   },
 
   async recoverPasswordRequest(email) {
