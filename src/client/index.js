@@ -54,7 +54,7 @@ const mutation = {
         newPassword: $newPassword
       )
     }
-  `
+  `,
 
   setUserPassword: gql`
     mutation login (
@@ -74,7 +74,7 @@ const mutation = {
 const extensionMethods = {
 
   async createUserEmailPassword(userInput) {
-    this.loginStart();
+    // this.loginStart();
     if (userInput.password) {
       userInput.password = hashPassword(userInput.password);
     }
@@ -86,7 +86,9 @@ const extensionMethods = {
       },
     });
 
-    this.loginComplete(result, 'apCreateUserEmailPassword');
+    return result;
+    // Don't call login complete since we added verification process
+    // this.loginComplete(result, 'apCreateUserEmailPassword');
   },
 
   async recoverPassworedRequest(email) {
