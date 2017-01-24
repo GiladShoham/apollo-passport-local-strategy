@@ -78,6 +78,11 @@ const resolvers = {
         };
       }
 
+      const onVerifyAccountEnd = this.onVerifyAccountEnd;
+      if (onVerifyAccountEnd && typeof onVerifyAccountEnd === 'function') {
+        onVerifyAccountEnd(user);
+      }
+
       this.db.verifyUserAccount(userId);
     },
 
@@ -125,6 +130,12 @@ const resolvers = {
       } catch (err) {
         return err.message;
       }
+
+      const onRecoverPasswordEnd = this.onRecoverPasswordEnd;
+      if (onRecoverPasswordEnd && typeof onRecoverPasswordEnd === 'function') {
+        onRecoverPasswordEnd(user);
+      }
+
       return "";
     },
 
@@ -138,6 +149,11 @@ const resolvers = {
 
           if (!user || info)
             return resolve({ error: info, token: "" });
+
+          const onLoginEnd = this.onLoginEnd;
+          if (onLoginEnd && typeof onLoginEnd === 'function') {
+            onLoginEnd(user);
+          }
 
           resolve({
             error: "",
@@ -179,6 +195,12 @@ const resolvers = {
       } catch (err) {
         return err.message;
       }
+
+      const onUpdatePasswordEnd = this.onUpdatePasswordEnd;
+      if (onUpdatePasswordEnd && typeof onUpdatePasswordEnd === 'function') {
+        onUpdatePasswordEnd(user);
+      }
+
       return "";
     }
 

@@ -12,7 +12,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add apVerifyAccount mutation to verify the account
 * Add recoverPasswordRequest mutation to create reset password token
 * Add option to define input apUserInput (outside) for creating new users with your desired fields
-* Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd) (for example to send verification emails)
+* Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
 * Improve errors format (Add error code)
 
 ## New Features in this fork (Usage)
