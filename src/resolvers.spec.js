@@ -102,7 +102,7 @@ describe('apollo-passport-local', () => {
         context.db = { fetchUserByEmail: async () => null };
         context.createUser = async function(user) {
           user.should.deep.equal({
-            emails: [ { address: 'email' }],
+            emails: [ { value: 'email' }],
             services: { password: { bcrypt: 'hashed:password ' }}
           });
           return 'elizabeth';

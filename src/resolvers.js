@@ -13,8 +13,10 @@ const resolvers = {
 
       // Get token which expires after 4 weeks
       const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7 * 4);
+      // We put the emails in this format to follow the standard described here:
+      // http://passportjs.org/docs/profile
       let user = Object.assign(reducedInput, {
-        emails: [{ address: input.email }],
+        emails: [{ value: input.email }],
         services: { password: { bcrypt: await this.hashPassword(input.password) } },
         verificationToken: verificationToken.token,
         verificationTokenExpiration: verificationToken.expiration,
