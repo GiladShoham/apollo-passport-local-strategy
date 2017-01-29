@@ -1,6 +1,6 @@
 {
-  "name": "apollo-passport-local",
-  "version": "0.0.3",
+  "name": "apollo-passport-local-strategy",
+  "version": "0.1.0",
   "description": "Local strategy using email address and hashed, bcrypted password",
   "main": "src/index.js",
   "files": ["src", ".babelrc", ".eslintrc.json", "circle.yml", "wallaby.js"],
@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apollo-passport/local"
+    "url": "https://github.com/GiladShoham/apollo-passport-local-strategy"
   },
   "bugs": {
-    "url": "https://github.com/apollo-passport/local/issues"
+    "url": "https://github.com/GiladShoham/apollo-passport-local-strategy/issues"
   },
   "keywords": [
     "apollo",
@@ -26,7 +26,7 @@
     "authentication",
     "apollo-passport-strategy"
   ],
-  "author": "Gadi Cohen",
+  "author": "Gilad Shoham <shoham.gilad@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "apollo-passport": "^0.0.7",
