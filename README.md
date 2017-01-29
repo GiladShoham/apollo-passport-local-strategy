@@ -15,6 +15,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
 * Improve errors format (Add error code)
 * Allow users without services to register even if their email already exist (Merge with existing user) for case that the user added from outside and not really registered
+# Align user schema (email field) with passport recommended structure from [here](http://passportjs.org/docs/profile):
 
 ## New Features in this fork (Usage)
 ### Use my fork of [apollo-passport-mongodb-driver](https://github.com/GiladShoham/apollo-passport-mongodb-driver)
