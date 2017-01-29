@@ -213,7 +213,7 @@ apolloPassport.use('local', LocalStrategy /*, options */);
 **Client**
 
 ```js
-import ApolloPassportLocal from 'apollo-passport-local/lib/client';
+import ApolloPassportLocal from 'apollo-passport-local-strategy/lib/client';
 
 // Your previously created ApolloPassport instance...
 apolloPassport.use('local', ApolloPassportLocal);
