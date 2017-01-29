@@ -11,8 +11,8 @@ const resolvers = {
       if (existing && existing.services && Object.keys(existing.services).length > 0)
         return { token: "", error: "E-mail already registered" };
 
-      // Get token which expires after 4 weeks
-      const verificationToken = await this.generateVerificationToken(60 * 60 * 24 * 7 * 4);
+      const expirationLength = this.strategies.local.tokensExpirationLength.verification;
+      const verificationToken = await this.generateVerificationToken(expirationLength);
       // We put the emails in this format to follow the standard described here:
       // http://passportjs.org/docs/profile
       let user = Object.assign(reducedInput, {
@@ -99,8 +99,8 @@ const resolvers = {
       if (!user)
         return 'No such user email';
 
-      // Get token which expires after 4 weeks
-      const { token, expiration } = await this.generateVerificationToken(60 * 60 * 24 * 7);
+        const expirationLength = this.strategies.local.tokensExpirationLength.resetPass;
+      const { token, expiration } = await this.generateVerificationToken(expirationLength);
       await this.db.addResetPasswordToken(user._id, token, expiration);
 
       // Fetch again to make sure we have the tokens in the db

@@ -141,9 +141,12 @@ During the create user there is a check if the user exist.
 If the user exist but without any service the new user will be merged with the existing one.
 The reason beyond this, is if you collect some user details from other users or from external source, maybe you want someone to invite other user, you want to create this user, but still let him register and define his passowrd.
 
-### New options (hooks)
-The hooks will be called with the user as argument
-Here is an example for one hook:
+### New options (hooks / tokensExpirationLength)
+The hooks will be called with the user as argument.
+Default for tokensExpirationLength is 1 week for both (verification and reset pass).
+The length is at SECONDS and not milliseconds.
+
+Here is an example for one hook and changing the tokens expiration length:
 ```js
 import { Strategy as LocalStrategy } from 'apollo-passport-local-strategy/lib/index';
 
@@ -151,6 +154,8 @@ const onRegisterUserHook = function(user){
     logService.log('user registered');
     mailService.sendVerificationMail(user);
 }
+
+const MONTH = 60 * 60 * 24 * 7 * 4;
 
 const apolloPassportLocalOptions = {
   usernameField: 'email',
@@ -162,6 +167,11 @@ const apolloPassportLocalOptions = {
     onUpdatePasswordEnd: onUpdatePasswordEndHook,
     onVerifyAccountEnd: onVerifyAccountEndHook,
     onLoginEnd: onLoginEndHook,
+  },
+  // Set the expiration to be 4 weeks
+  tokensExpirationLength: {
+    verification: MONTH,
+    resetPass: MONTH,
   },
 };
 

@@ -13,6 +13,15 @@ import schema from './schema';
 
 const BCRYPT_SALT_ROUNDS=10;
 
+// Default Tokens Expiration (1 week)
+const WEEK = 60 * 60 * 24 * 7;
+
+// Default Tokens Expiration (1 week)
+const defaultTokensExpirationLength = {
+  verification: WEEK,
+  resetPass: WEEK,
+};
+
 const extensionMethods = {
 
   hashPassword(password, cb) {
@@ -57,12 +66,14 @@ class AugmentedLocalStrategy {
 
     // extensionMethods.hookFuncs = options.hookFuncs;
     Object.assign(extensionMethods, options.hookMethods);
-
+    const tokensExpirationLength = Object.assign({}, defaultTokensExpirationLength, options.tokensExpirationLength);
+    this.tokensExpirationLength = tokensExpirationLength;
     this.strategy = new LocalStrategy(options, verify.bind(this.ap));
 
     this.resolvers = resolvers;
     this.schema = schema;
 
+    // this.ap.extendWith(tokensExpiration);
     this.ap.extendWith(extensionMethods);
   }
 
