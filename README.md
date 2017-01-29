@@ -23,6 +23,11 @@ npm install apollo-passport-mongodb-driver
 ```
 
 ### Import my version of local strategy
+First, make sure to install my version of local strategy:
+```js
+npm i --save apollo-passport-local-strategy
+```
+
 In [apollo-passport](https://github.com/apollo-passport/apollo-passport#getting-started) docs, you will see this line:
 ```js
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -182,13 +187,13 @@ See https://github.com/gadicc/apollo-passport.
 Note: you don't usually need a special `apollo-passport-xxx` package for every passport strategy.  `apollo-passport-local` is a special case because of it's dependencies, e.g. `bcrypt` and some client-side hashing.
 
 ```sh
-$ npm i --save passport-local apollo-passport-local
+$ npm i --save passport-local apollo-passport-local-strategy
 ```
 
 **Server**
 
 ```js
-import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as LocalStrategy } from 'apollo-passport-local-strategy/lib/index';
 
 // Your previously created ApolloPassport instance...
 apolloPassport.use('local', LocalStrategy /*, options */);
