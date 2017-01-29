@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Local strategy using email address and hashed, bcrypted password",
   "main": "src/index.js",
-  "files": ["src", ".babelrc", ".eslintrc.json", "circle.yml", "wallaby.js"],
   "scripts": {
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
