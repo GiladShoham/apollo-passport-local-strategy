@@ -29,6 +29,7 @@ const resolvers = {
           userId = await this.createUser(user);
         } else {
           userId = existing._id;
+          user.dateRegistered = new Date();
           this.db.updateUser(userId, user);
         }
 
@@ -40,7 +41,7 @@ const resolvers = {
       }
 
       // XXX correct id field?
-      user.id = userId;
+      // user.id = userId;
 
       const onCreateUserEnd = this.onCreateUserEnd;
       if (onCreateUserEnd && typeof onCreateUserEnd === 'function') {
