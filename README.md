@@ -1,4 +1,4 @@
-# apollo-passport-local
+# apollo-passport-local-strategy
 
 Forked from [apollo-passport/local](https://github.com/apollo-passport/local)
 Local strategy using email address and hashed, bcrypted password.
@@ -15,7 +15,8 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
 * Improve errors format (Add error code)
 * Allow users without services to register even if their email already exist (Merge with existing user) for case that the user added from outside and not really registered
-# Align user schema (email field) with passport recommended structure from [here](http://passportjs.org/docs/profile):
+# Align user schema (email field) with passport recommended structure from [here](http://passportjs.org/docs/profile)
+# Add register date during merge with existing user
 
 ## New Features in this fork (Usage)
 ### Use my fork of [apollo-passport-mongodb-driver](https://github.com/GiladShoham/apollo-passport-mongodb-driver)
@@ -153,6 +154,11 @@ import { Strategy as LocalStrategy } from 'apollo-passport-local-strategy/lib/in
 const onRegisterUserHook = function(user){
     logService.log('user registered');
     mailService.sendVerificationMail(user);
+}
+
+const onLoginEndHook = function(user){
+    logService.log('user logged in');
+    UserService.updateLastLogin(user._id);
 }
 
 const MONTH = 60 * 60 * 24 * 7 * 4;
