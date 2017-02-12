@@ -12,7 +12,7 @@ Copyright (c) 2017 by Gilad Shoham, released under the MIT license.
 * Add account verification token during create user
 * Add apVerifyAccount mutation to verify the account
 * Add recoverPasswordRequest mutation to create reset password token
-* Add options to pass hooks method (onCreateUserEnd, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
+* Add options to pass hooks method (onCreateUserEnd, onBeforeStoreRegisteredUser, onRecoverPasswordRequestEnd, onVerifyAccountEnd, onRecoverPasswordEnd, onLoginEnd) (for example to send verification emails)
 * Improve errors format (Add error code)
 * Allow users without services to register even if their email already exist (Merge with existing user) for case that the user added from outside and not really registered
 # Align user schema (email field) with passport recommended structure from [here](http://passportjs.org/docs/profile)
@@ -168,6 +168,7 @@ const apolloPassportLocalOptions = {
   passwordField: 'password',
   hookMethods: {
     onCreateUserEnd: onRegisterUserHook,
+    onBeforeStoreRegisteredUser: onBeforeStoreRegisteredUserHook,
     onRecoverPasswordRequestEnd: onRecoverPasswordRequestEndHook,
     onRecoverPasswordEnd: onRecoverPasswordEndHook,
     onUpdatePasswordEnd: onUpdatePasswordEndHook,

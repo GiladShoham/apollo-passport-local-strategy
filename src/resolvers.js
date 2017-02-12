@@ -24,6 +24,12 @@ const resolvers = {
       });
 
       let userId;
+
+      const onBeforeStoreRegisteredUser = this.onBeforeStoreRegisteredUser;
+      if (onBeforeStoreRegisteredUser && typeof onBeforeStoreRegisteredUser === 'function') {
+        onBeforeStoreRegisteredUser(user);
+      }
+
       try {
         if (!existing){
           userId = await this.createUser(user);
